@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LoginActivity">
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/loginId"
+        android:singleLine="true"
+        android:nextFocusForward="@+id/password"
+        android:hint="请输入用户名"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/password"
+        android:layout_below="@id/loginId"
+        android:singleLine="true"
+        android:password="true"
+        android:hint="请输入密码"
+        android:textSize="20sp"
+        android:imeOptions="actionDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/loginButton"
+        android:soundEffectsEnabled="true"
+        android:text="登        录"
+        android:textSize="20sp"
+        android:layout_below="@id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/anonymousLoginButton"
+        android:soundEffectsEnabled="true"
+        android:textSize="20sp"
+        android:text="匿   名   登   录"
+        android:layout_below="@id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
