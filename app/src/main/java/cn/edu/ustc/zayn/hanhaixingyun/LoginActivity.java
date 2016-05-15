@@ -45,48 +45,49 @@ public class LoginActivity extends AppCompatActivity {
     private Intent intent;
     private EditText idField, passworldField;
     private Button loginButton, anonymousLoginButton;
-    private HashMap<String, String> cookie;
     private SharedPreferenceUtil sharedPreferenceUtil;
+    private boolean anonymous;
+    private HashMap<String, String>  cookie;
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.loginButton:
+                    anonymous = false;
                     Login();
                     break;
                 case R.id.anonymousLoginButton:
-                    anonymousLogin();
+                    anonymous = true;
+                    Login();
                     break;
             }
         }
     };
 
-    private void anonymousLogin() {
-        final ProgressDialog progressDialog = CommonUtil.getProcessDialog(this, "Logging in...");
-        progressDialog.show();
-        Toast.makeText(getApplicationContext(), "匿名登录，发/回帖需要实名！", Toast.LENGTH_SHORT).show();
-        sharedPreferenceUtil.setKeyData("isLogged in", "FALSE");
-
-        //Start exploring the web page
-        intent = new Intent(LoginActivity.this, ExploreMainPage.class);
-        startActivity(intent);
-        finish();
-    }
-
     private Runnable loginThread = new Runnable() {
         @Override
         public void run() {
             try{
-                Connection.Response response = Jsoup.connect(HttpUtil.URLLogin)
-                        .data("id",HttpUtil.id,"pw",HttpUtil.password,"x",HttpUtil.x,"y",HttpUtil.y)
-                        .method(Connection.Method.POST)
-                        .execute();
-                Document document = response.parse();
-                HashMap<String, String> cookie = new HashMap<>();
-                cookie.put("utmpnum",response.cookie("utmpnum"));
-                cookie.put("utmpkey",response.cookie("utmpkey"));
-                cookie.put("utmpuserid", response.cookie("utmpuserid"));
+                Document document;
+                cookie = new HashMap<>();
+                if(anonymous == false) {
+                    Connection.Response response = Jsoup.connect(HttpUtil.URLLogin)
+                            .data("id", HttpUtil.id, "pw", HttpUtil.password, "x", HttpUtil.x, "y", HttpUtil.y)
+                            .method(Connection.Method.POST)
+                            .execute();
+                    document = response.parse();
+                    cookie.put("utmpnum", response.cookie("utmpnum"));
+                    cookie.put("utmpkey", response.cookie("utmpkey"));
+                    cookie.put("utmpuserid", response.cookie("utmpuserid"));
+                }
+                else{
+                    Connection.Response response = Jsoup.connect(HttpUtil.URLLogin)
+                            .data("id", "guest", "pw", "", "ajax", "1")
+                            .method(Connection.Method.POST)
+                            .execute();
+                    document = response.parse();
+                }
                 Looper.prepare();
                 if(document.toString().contains("密码错误")){
                     Toast.makeText(getApplicationContext(),"密码错误!",Toast.LENGTH_SHORT).show();
@@ -95,12 +96,18 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"错误的使用者帐号!",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_SHORT).show();
-                    sharedPreferenceUtil.setKeyData("_ga","GA1.3.2003984802.1448463001");
                     sharedPreferenceUtil.setKeyData("utmpnum", cookie.get("umpnum"));
                     sharedPreferenceUtil.setKeyData("utmpkey", cookie.get("utmpkey"));
                     sharedPreferenceUtil.setKeyData("utmpuserid", cookie.get("utmpuserid"));
                     sharedPreferenceUtil.setKeyData("isLogged in", "TRUE");
+                    if(anonymous == true || HttpUtil.id == "guest"){
+                        Toast.makeText(getApplicationContext(),
+                                "匿名登录，发/回帖需要实名！", Toast.LENGTH_SHORT).show();
+                        sharedPreferenceUtil.setKeyData("isLogged in", "FALSE");
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_SHORT).show();
+                    }
                     intent = new Intent(LoginActivity.this, ExploreMainPage.class);
                     startActivity(intent);
                     finish();
@@ -115,24 +122,12 @@ public class LoginActivity extends AppCompatActivity {
     private void Login() {
         HttpUtil.id = idField.getText().toString();
         HttpUtil.password = passworldField.getText().toString();
-        if (HttpUtil.id.matches("") || HttpUtil.password.matches("")) {
-            Toast.makeText(getApplicationContext(), "账号或密码为空", Toast.LENGTH_SHORT)
+        if ((HttpUtil.id.matches("") || HttpUtil.password.matches("")) && anonymous==false ) {
+            Toast.makeText(getApplicationContext(), "账号或密码为空!", Toast.LENGTH_SHORT)
                     .show();
             return;
         }
-        if(HttpUtil.id.contains("guest")){
-            anonymousLogin();
-            return;
-        }
-        final ProgressDialog progressDialog = CommonUtil.getProcessDialog(this, "Logging in...");
-        progressDialog.show();
-        try {
-            new Thread(loginThread).start();
-        } catch(Exception e){
-            e.printStackTrace();
-        }finally {
-            progressDialog.dismiss();
-        }
+        new Thread(loginThread).start();
     }
 
     private void InitViews() {
@@ -140,6 +135,8 @@ public class LoginActivity extends AppCompatActivity {
         passworldField = (EditText) findViewById(R.id.password);
         loginButton = (Button) findViewById(R.id.loginButton);
         anonymousLoginButton = (Button) findViewById(R.id.anonymousLoginButton);
+        //loginButton.getBackground().setAlpha(11);
+        //anonymousLoginButton.getBackground().setAlpha(11);
     }
 
     private void InitEvents() {
@@ -154,7 +151,6 @@ public class LoginActivity extends AppCompatActivity {
         InitViews();
         InitEvents();
         sharedPreferenceUtil = new SharedPreferenceUtil(getApplicationContext(), "accountInfo");
-
     }
 
 }

@@ -75,7 +75,9 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0-alpha2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.0.0-alpha2/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.ms-square/expandableTextView/0.1.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/org.litepal.android/core/1.3.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/pl.droidsonroids.gif/android-gif-drawable/1.1.15/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -96,10 +98,12 @@
     <orderEntry type="library" exported="" name="support-v4-24.0.0-alpha2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-24.0.0-alpha2" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.9.1" level="project" />
+    <orderEntry type="library" exported="" name="expandableTextView-0.1.4" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-24.0.0-alpha2" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-24.0.0-alpha2" level="project" />
-    <orderEntry type="library" exported="" name="httpclient-4.3.6" level="project" />
+    <orderEntry type="library" exported="" name="android-gif-drawable-1.1.15" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.3" level="project" />
+    <orderEntry type="library" exported="" name="httpclient-4.3.6" level="project" />
     <orderEntry type="library" exported="" name="core-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-24.0.0-alpha2" level="project" />

@@ -23,20 +23,22 @@ public class HttpUtil {
             URLLogin = "http://bbs.ustc.edu.cn/cgi/bbslogin",
             URLCheckBox = "";
     public static String URLMain = "http://bbs.ustc.edu.cn/cgi/bbsindex",
-            URLBoard = "http://bbs.ustc.edu.cn/cgi/bbstdoc?board=";
-    //URLQuery = "http://bbs.ustc.edu.cn/bbstty";
+            URLBoard = "http://bbs.ustc.edu.cn/cgi/bbstdoc?board=",
+            URLQueryID = "http://bbs.ustc.edu.cn/cgi/bbsqry?userid=",
+            URLReasources = "http://bbs.ustc.edu.cn/cgi/";
+            //URLQuery = "http://bbs.ustc.edu.cn/bbstty";
     //post vars
-    public static String id = null,
-            password = null,
+    public static String id = "guest",
+            password = "aabb",
             x = "1",
             y = "1";
     // init client properties
     static {
         asyncHttpClient.setTimeout(5000);// 5s, default as 10s
         //set headers
-        asyncHttpClient.addHeader("HOST", HOST);
-        asyncHttpClient.addHeader("Refer", URLLogin);
+        asyncHttpClient.addHeader("Host", HOST);
         asyncHttpClient.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36");
+        asyncHttpClient.addHeader("Connection", "Keep-Alive");
     }
 
 
@@ -134,19 +136,6 @@ public class HttpUtil {
         requestParams.add("pw", password);
         requestParams.add("x", x);
         requestParams.add("y", y);
-        return requestParams;
-    }
-
-    /**
-     * set params for anonymous login
-     *
-     * @return
-     */
-    public static RequestParams getAnonymousLoginParams(){
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("id", id);
-        requestParams.add("pw", password);
-        requestParams.add("ajax", String.valueOf(1));
         return requestParams;
     }
 
