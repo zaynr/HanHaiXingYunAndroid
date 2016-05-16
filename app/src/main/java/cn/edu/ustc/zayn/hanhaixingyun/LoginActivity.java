@@ -1,44 +1,23 @@
 package cn.edu.ustc.zayn.hanhaixingyun;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
-import com.loopj.android.http.RequestParams;
-
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.litepal.tablemanager.Connector;
 
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import cn.edu.ustc.zayn.hanhaixingyun.Explorer.ExploreMainPage;
-import cn.edu.ustc.zayn.hanhaixingyun.utils.CommonUtil;
 import cn.edu.ustc.zayn.hanhaixingyun.utils.HttpUtil;
 import cn.edu.ustc.zayn.hanhaixingyun.utils.SharedPreferenceUtil;
-import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends AppCompatActivity {
     //variables

@@ -6,7 +6,7 @@
         android:id="@+id/article_details_icon"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/excited_bbs_logo_dpicon"
         android:scaleType="fitXY"
         android:layout_width="45dp"
         android:layout_height="45dp" />
@@ -38,7 +38,7 @@
         android:layout_marginLeft="10dp"
         android:layout_below="@id/article_details_body"
         android:layout_toRightOf="@id/article_details_icon"
-        android:text="阅读全文"
+        android:text="GONE!"
         android:background="#fff"
         android:textColor="#44f"
         android:textSize="16sp"

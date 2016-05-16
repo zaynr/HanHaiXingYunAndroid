@@ -32,5 +32,6 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.android.support:recyclerview-v7:+'
     compile 'com.ms-square:expandableTextView:0.1.4'
 }

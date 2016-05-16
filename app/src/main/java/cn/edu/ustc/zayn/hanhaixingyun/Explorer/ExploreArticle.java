@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -61,17 +63,23 @@ public class ExploreArticle extends AppCompatActivity {
     }
 
     private void DealWithArticles(Document document){
-        textView.setText(document.select("span.sitename").get(1).text().replace("标题:", ""));
+        String title = String.valueOf(document.text());
+        int i = title.indexOf("标题:")+4, j=title.indexOf(" ", i);
+        textView.setText(title.substring(i, j));
         Elements articleBodys = document.select("div.post_text");
-        for(int i=0; i!=articleBodys.size(); i++){
+        for(i=0; i!=articleBodys.size(); i++){
             article = new Article();
             //body handling
             String ArticleBody = document.select("div.post_text").get(i).toString();
-            int indexS = ArticleBody.indexOf("站内信件") + 15, indexE = ArticleBody.indexOf("--");
+            int indexS = ArticleBody.indexOf("站内信件") + 15, indexE = ArticleBody.indexOf("<hr>");
             if(ArticleBody.contains("POST")){
                 indexS += 16;
             }
-            article.articleBody = ArticleBody.substring(indexS, indexE);
+            article.articleBody = ArticleBody.substring(indexS).replace(".einfo{height:", "");
+            if(document.select("table.attachment").size() > i) {
+                String attachment = document.select("table.attachment").get(i).toString();
+                article.articleBody += attachment;
+            }
             //author info
             indexS = ArticleBody.indexOf("发信人:&nbsp;")+10;
             indexE = ArticleBody.indexOf("&", indexS);
@@ -85,10 +93,8 @@ public class ExploreArticle extends AppCompatActivity {
             article.linecount = -1;
             articleList.add(article);
         }
-        articleDetailsAdapter
-                = new ArticaleDetailsAdapter(getApplicationContext(), articleList);
+        articleDetailsAdapter = new ArticaleDetailsAdapter(getApplicationContext(), articleList);
         listView.setAdapter(articleDetailsAdapter);
-        HandlingClicks();
     }
 
     private void ParseIndexPage() {
@@ -119,14 +125,6 @@ public class ExploreArticle extends AppCompatActivity {
                 });
     }
 
-    void HandlingClicks(){
-        ArticaleDetailsAdapter adapter = (ArticaleDetailsAdapter)listView.getAdapter();
-        articleList = adapter.getArticles();
-        for(int i=0; i!=articleList.size(); i++){
-            textView = (TextView) adapter.getView(i, null, null).findViewById(R.id.article_details_body);
-            Button readMore = (Button) adapter.getView(i, null, null).findViewById(R.id.show_more);
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

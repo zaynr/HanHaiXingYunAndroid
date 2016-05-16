@@ -1,41 +1,16 @@
 package cn.edu.ustc.zayn.hanhaixingyun.adapter;
 
 import android.content.Context;
-import android.database.DataSetObserver;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.edu.ustc.zayn.hanhaixingyun.Explorer.ExploreMainPage;
 import cn.edu.ustc.zayn.hanhaixingyun.R;
-import cn.edu.ustc.zayn.hanhaixingyun.utils.DownloadImageTask;
-import cn.edu.ustc.zayn.hanhaixingyun.utils.HttpUtil;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by zaynr on 2016/5/14.

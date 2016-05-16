@@ -59,7 +59,7 @@ public class URLImageParser implements Html.ImageGetter {
             // set the correct bound according to the result from HTTP call
             container.measure(0, 0);
             int scale = container.getWidth();
-            urlDrawable.setBounds(0, 0, scale, result.getIntrinsicHeight() * (scale / result.getIntrinsicWidth()));
+            urlDrawable.setBounds(0, 0, scale, ((int)Math.ceil((double)scale/result.getIntrinsicWidth()))*result.getIntrinsicHeight());
 
             // change the reference of the current drawable to the result
             // from the HTTP call
@@ -79,7 +79,7 @@ public class URLImageParser implements Html.ImageGetter {
                 int scale = container.getWidth();
                 InputStream is = fetch(urlString);
                 Drawable drawable = Drawable.createFromStream(is, "src");
-                drawable.setBounds(0, 0, scale, (scale / drawable.getIntrinsicWidth())*drawable.getIntrinsicHeight());
+                drawable.setBounds(0, 0, scale, ((int)Math.ceil((double)scale/drawable.getIntrinsicWidth()))*drawable.getIntrinsicHeight());
                 return drawable;
             } catch (Exception e) {
                 return null;

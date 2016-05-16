@@ -34,7 +34,7 @@ public class Test {
     public static void main(String[] argc){
         try{
             Document document;
-                Connection.Response response = Jsoup.connect("http://bbs.ustc.edu.cn/cgi/bbstcon?board=Tennis&file=M.1460104619.A")
+                Connection.Response response = Jsoup.connect("http://bbs.ustc.edu.cn/cgi/bbsindex")
                         .data("id", HttpUtil.id, "pw", HttpUtil.password, "x", HttpUtil.x, "y", HttpUtil.y)
                         .method(Connection.Method.POST)
                         .execute();

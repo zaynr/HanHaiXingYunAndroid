@@ -48,7 +48,7 @@
     </RelativeLayout>
     <ImageView
         android:layout_below="@id/article_detail"
-        android:background="#2b2"
+        android:background="#666"
         android:layout_width="match_parent"
         android:layout_height="5dp" />
 

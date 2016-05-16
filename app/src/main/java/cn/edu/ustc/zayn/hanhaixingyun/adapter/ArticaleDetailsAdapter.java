@@ -100,7 +100,6 @@ public class ArticaleDetailsAdapter extends BaseAdapter{
             viewHolder.author = (TextView) convertView.findViewById(R.id.article_details_author);
             viewHolder.date = (TextView) convertView.findViewById(R.id.article_details_date);
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.article_details_icon);
-            viewHolder.icon.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_dialog_email));
             convertView.setTag(viewHolder);
         }
         else{
@@ -134,12 +133,14 @@ public class ArticaleDetailsAdapter extends BaseAdapter{
             @Override
             protected void onPostExecute(String params) {
                 super.onPostExecute(params);
-                int linecount = viewHolder.body.getLineCount();
-                if(linecount > 10 && String.valueOf(viewHolder.readMore.getText()).equals("阅读全文")){
+                if(viewHolder.body.getLineCount() > 10){
                     viewHolder.body.setMaxLines(10);
+                    viewHolder.readMore.setText("阅读全文");
                     viewHolder.readMore.setVisibility(View.VISIBLE);
                 }
-                else if(!String.valueOf(viewHolder.readMore.getText()).equals("收起")){
+                else if(String.valueOf(viewHolder.readMore.getText()).equals("阅读全文")){
+                    viewHolder.body.setMaxLines(300);
+                    viewHolder.readMore.setText("GONE!");
                     viewHolder.readMore.setVisibility(View.GONE);
                 }
                 viewHolder.readMore.setOnClickListener(new View.OnClickListener() {
@@ -147,11 +148,8 @@ public class ArticaleDetailsAdapter extends BaseAdapter{
                     public void onClick(View v) {
                         if(String.valueOf(viewHolder.readMore.getText()).equals("阅读全文")){
                             viewHolder.body.setMaxLines(300);
-                            viewHolder.readMore.setText("收起");
-                        }
-                        else{
-                            viewHolder.body.setMaxLines(10);
-                            viewHolder.readMore.setText("阅读全文");
+                            viewHolder.readMore.setVisibility(View.GONE);
+                            viewHolder.readMore.setText("GONE!");
                         }
                     }
                 });
@@ -177,8 +175,6 @@ public class ArticaleDetailsAdapter extends BaseAdapter{
                             if (!downloadURL.equals("/images/default_face.gif")) {
                                 new DownloadImageTask((ImageView) view.findViewById(R.id.article_details_icon))
                                         .execute("http://bbs.ustc.edu.cn/cgi/" + downloadURL);
-                            } else {
-                                viewHolder.icon.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_dialog_email));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
